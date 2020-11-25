@@ -34,9 +34,13 @@ def set_chrome_options() -> None:
 #        "https://onemarketingplace.es/busqueda/empresa/de/performance-marketing", "https://onemarketingplace.es/busqueda/empresa/de/produccion-multimedia",
 #        "https://onemarketingplace.es/busqueda/empresa/de/redes-sociales", "https://onemarketingplace.es/busqueda/empresa/de/telemarketing"]
 
-urls = ["https://onemarketingplace.es/busqueda/empresa/de/comunicacion-y-relaciones-publicas"]
+urls = ["https://onemarketingplace.es/busqueda/empresa/de/incubadoras-de-negocio", "https://onemarketingplace.es/busqueda/empresa/de/investigacion-de-mercados",
+        "https://onemarketingplace.es/busqueda/empresa/de/marketing-movil", "https://onemarketingplace.es/busqueda/empresa/de/marketing-servicios",
+        "https://onemarketingplace.es/busqueda/empresa/de/marketing-de-contenidos", "https://onemarketingplace.es/busqueda/empresa/de/medios-y-soportes",
+        "https://onemarketingplace.es/busqueda/empresa/de/performance-marketing", "https://onemarketingplace.es/busqueda/empresa/de/produccion-multimedia",
+        "https://onemarketingplace.es/busqueda/empresa/de/redes-sociales", "https://onemarketingplace.es/busqueda/empresa/de/telemarketing"]
 # dataframe
-df = pd.DataFrame(columns=['company_name', 'email', 'phone', 'address', 'review', 'company_url', 'service'])
+
 # df = pd.DataFrame(columns=['address', 'business', 'category', 'company_description', 'company_name', 'company_url',
 #                           'country', 'country_code', 'email', 'experience', 'facebook_url', 'first_name', 'found_at_url',
 #                           'instagram_url', 'keywords', 'languages', 'last_name', 'linkedin_url', 'locality', 'middle_name',
@@ -45,6 +49,7 @@ df = pd.DataFrame(columns=['company_name', 'email', 'phone', 'address', 'review'
 #                           'working_hours', 'zip', 'service_slug', 'comment'])
 base = "https://onemarketingplace.es"
 for url in urls:
+    df = pd.DataFrame(columns=['company_name', 'email', 'phone', 'address', 'review', 'company_url', 'service'])
     driver = webdriver.Chrome(options=set_chrome_options())
     driver.get(url)
 
@@ -120,6 +125,8 @@ for url in urls:
         # So after each iteration we delete it
         del (sp)
         print("#####################")
+    df.to_csv('./output.csv', index=False, header=False, mode='a')
+    df = None
+    print("##### Pushed to Csv #####")
 
-print(df)
-df.to_csv(r'./output.csv', index=False, header=True)
+
